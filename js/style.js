@@ -26,10 +26,6 @@ $(window).scroll(function (){
              $(this).css('transform','translateY(0)');
          }
      });
-     animation();
-     $(window).scroll(function (){
-          animation();
-     });
  });
 
  // ===========/スクロールフェイドインアクション============
