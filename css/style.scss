@@ -23,23 +23,48 @@ body{
     font-size: 2rem;
     color: $mainFontColor;
     -webkit-font-smoothing: antialiased;
+
+    @media screen and(max-width: 768px){
+        font-size: 1.6rem;
+    }
 }
-h1{
-    // font-size: 18rem;
+
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translate(-40%, 30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-40%, 0px);
+    }
+  }
+.main-ttl{
     font-size: calc(6rem + ((1vw - 3.75px) * 13.2597));
+    // 1280に対して18rem、375に対して6remで可変
+    animation: fade-in-up 1.2s ease 0.7s forwards;
+    opacity: 0;
 }
-h2{
+.section-ttl{
     font-size: 6rem;
     text-align: center;
+
+    @media screen and(max-width: 768px){
+        font-size: 4rem;
+    }
 }
-h3{
+.sub-ttl{
     font-size: 3.2rem;
+
+    @media screen and(max-width: 768px){
+        font-size: 2.4rem;
+    }
 }
 img{
     max-width: 100%;
     vertical-align: middle; // imgのしたの余白を消す。display: block; でも可
 }
-@mixin h2-shadow{
+@mixin section-ttl-shadow{
     position: relative;
     z-index: 1;
     &:before{
@@ -57,6 +82,16 @@ img{
         z-index: -1;
     }
 }
+.fadeIn{
+    opacity: 0;
+    transform: translateY(200px);
+    transition: all 1s ease 0s;
+}
+.fadeInRight{
+    opacity: 0;
+    transform: translateX(200px);
+    transition: all 1s ease 0s;
+}
 
 // ===============/utility===============
 
@@ -67,13 +102,19 @@ img{
         top: 36px;
         left: 36px;
         color: #fff;
-        // font-size: 4.2rem;
         font-size: calc(2.4rem + ((1vw - 3.75px) * 1.989));
+        // 1280に対して4.2rem,375に対して2.4rem
         text-transform: uppercase;
         z-index: 2;
     }
-}
 
+    @media screen and(max-width: 768px){
+        p{
+            top: 2%;
+            left: 5%;
+        }
+    }
+}
 
 .main-visual{
     position: relative;
@@ -113,7 +154,7 @@ img{
     max-width: 722px;
     margin: 0 auto;
 
-    h3{
+    .sub-ttl{
         text-align: center;
     }
     p{
@@ -123,6 +164,19 @@ img{
             margin-top: 52px;
         }
     }
+
+    @media screen and(max-width: 768px){
+        padding-top: 200px;
+        padding-bottom: 100px;
+        width: 95vw;
+    
+        p{
+            margin-top: 30px;
+            &:not(:first-of-type){
+                margin-top: 38px;
+            }
+        } 
+    }
 }
 
 .skills{
@@ -131,6 +185,12 @@ img{
     padding-bottom: 478px;
     background-color: #F2F2F2;
     z-index: 1;
+
+    @media screen and(max-width: 768px){
+        padding-top: 100px;
+        padding-bottom: 300px;
+    }
+
     &:after{
         position: absolute;
         top: 100px;
@@ -141,24 +201,23 @@ img{
         color: #fff;   
     }
 
-    h2{
-        @include h2-shadow();
+    .section-ttl{
+        @include section-ttl-shadow();
         &:before{
             content: 'Skills';
         }
     }
 
-
 // ================共通部分=================
        @mixin skillsSet{
            .skill-ttl{
-                width: 65%;
+                width: (837/1280)*100vw;
                 height: 452px;
                 background-color: $accentColor;
                 text-align: center;
             
 
-                h3{
+                .sub-ttl{
                     padding-top: 91px;
                     font-weight: normal;
                     position: relative;
@@ -188,7 +247,39 @@ img{
                     line-height: 2;
                 }
             }
-       }
+
+            @media screen and(max-width: 768px){
+                .skill-ttl{
+                    width: 100vw;
+                    height: 350px;
+                
+                    .sub-ttl{
+                        padding-top: 72px;
+    
+                        .skill-big{
+                            margin-left: 18px;
+                            font-size: 8rem;
+    
+                        }
+                        .skill-small{
+                            font-size: 1.6rem;
+                        }
+                    }
+                }
+    
+                .skill-flex{
+                    flex-direction: column;
+    
+                    figure{
+                        max-width: 95vw;
+                    }
+                    p{
+                        width: 95vw;
+                        margin: 42px auto 0;
+                    }
+                }
+            }
+        }
 // ================/共通部分=================
 
     .cording{
@@ -201,6 +292,19 @@ img{
 
             figure{
                 margin-right: 10px;
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            margin-top: 70px;
+    
+            .skill-flex{
+                top: -170px;
+    
+                figure{
+                    margin-right: auto;
+                    margin-left: auto;
+                }
             }
         }
     }
@@ -221,6 +325,20 @@ img{
                 margin-left: 10px;
             }
         }
+
+        @media screen and(max-width: 768px){
+            margin-top: 0px;
+    
+            .skill-flex{
+                flex-direction: column;
+                top: 180px;
+                
+                figure{
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+            }
+        }
     }
 }
 
@@ -229,8 +347,13 @@ img{
     padding-top: 270px;
     padding-bottom: 97px;
 
-    h2{
-        @include h2-shadow();
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+        padding-bottom: 100px;
+    }
+
+    .section-ttl{
+        @include section-ttl-shadow();
         &:before{
             content: 'Works';
             color: #fff;
@@ -245,6 +368,13 @@ img{
             text-align: center;
             font-size: 2.4rem;
             color: $accentColor;
+        }
+
+        @media screen and(max-width: 768px){
+            &:after{
+                top: -40px;
+                font-size: 1.6rem;
+            }
         }
     }
 
@@ -284,13 +414,13 @@ img{
                 border-radius: 50%;
             }
             figure{
-                width: 39%;
+                width: (497.25/1280)*100vw;
                 img{
                     width: 100%;
                 }
             }
             .works-text{
-                width: 50%;
+                width: (501/1280)*100vw;
                 max-width: 501px;
                 align-self: flex-start;
                 time{
@@ -306,16 +436,52 @@ img{
                 margin-top: 158px;
             }
         }
+
+        @media screen and(max-width: 768px){
+            margin-top: 78px;
+        
+            li{
+                flex-wrap: wrap;
+
+                .double-circle{
+                    width: 12px;
+                    height: 12px;
+                    border-width: 9px;  
+                }
+                figure{
+                    width: 80vw;
+                }
+                .works-text{
+                    margin-top: 20px;
+                    max-width: 100%;
+                    width: 80vw;
+                    margin-left: 14%;
+                    time{
+                        font-size: 2.4rem;
+                    }
+                }
+                &:not(:first-of-type){
+                    margin-top: 98px;
+                }
+            }
+        }
     }
 
     &-mind{
         max-width: 815px;
-        width: 70%;
+        width: (815/1280)*100vw;
         margin: 112px auto 0;
 
         p{
             margin-top: 21px;
             line-height: 2;
+        }
+
+        @media screen and(max-width: 768px){
+            &-mind{
+                width: 85%;
+                margin: 112px 0 0 10%;
+            }
         }
     }
 }
@@ -326,7 +492,12 @@ img{
     background-color: #F2F2F2;
     overflow: hidden;
 
-    h3{
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+        padding-bottom: 280px;
+    }
+
+    .sub-ttl{
         font-weight: normal;
         .opinions-big{
             margin-right: 10px;
@@ -334,14 +505,21 @@ img{
             font-size: 10rem;
             vertical-align: -10px;
         }
+        @media screen and(max-width: 768px){
+            .opinions-big{
+                font-size: 8rem;
+                margin-left: 18px;
+            }
+        }
     }
+
     p{
         line-height: 2;
     }
 
     .opinions-up{
         position: relative;
-        h3{
+        .sub-ttl{
             text-align: right;
             margin-right: 18%;
             white-space: nowrap;
@@ -354,6 +532,17 @@ img{
             margin-top: 93px;
             z-index: 10;
             background-color: rgba(240, 240, 240, 0.5);
+        }
+
+        @media screen and(max-width: 768px){
+            .sub-ttl{
+                margin-right: 5%;
+                white-space: normal;
+                line-height: 1.2;
+            }
+            p{
+                margin-top: 50px;
+            }
         }
     }
 
@@ -414,12 +603,20 @@ img{
                 z-index: 0;
             }
         }
+
+        @media screen and(max-width: 768px){
+            li{
+                &:nth-child(4){
+                    top: 530px;
+                }
+            }
+        }
     }
 
     .opinions-down{
         margin-top: 1219px;
         position: relative;
-        h3{
+        .sub-ttl{
             text-align: right;
             margin-right: 15%;
             z-index: 2;
@@ -432,15 +629,28 @@ img{
             z-index: 10;
             background-color: rgba(240, 240, 240, 0.5);
         }
+
+        @media screen and(max-width: 768px){
+            .sub-ttl{
+                margin-right: 5%;
+            }
+            p{
+                right: 10%;
+            }
+        }
     }
 }
 
 .history{
     padding-top: 277px;
     padding-bottom: 163px;
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+        padding-bottom: 100px;
+    }
 
-    h2{
-        @include h2-shadow();
+    .section-ttl{
+        @include section-ttl-shadow();
         &:before{
             content: 'History';
             color: #fff;
@@ -451,7 +661,6 @@ img{
         margin: 116px auto 0;
         max-width: 816px;
         line-height: 2;
-        
 
         tr{
             th{
@@ -466,6 +675,21 @@ img{
                 padding: 30px 0 30px 3px;
             }
         }
+
+        @media screen and(max-width: 768px){
+            width: (356/375)*100vw;
+            margin: 82px auto 0;
+    
+            tr{
+                th{
+                    padding: 20px 0;
+                }
+                td{
+                    border-left: solid 10px #fff;
+                    padding: 20px 0;
+                }
+            }
+        }
     }
 }
 
@@ -473,13 +697,18 @@ img{
     padding-top: 280px;
     background-color: #262626;
 
-    h2{
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+    }
+
+    .section-ttl{
         width: fit-content; // margin: auto; を使うための幅設定
         margin: 0 auto;
         color: #fff;
         line-height: 1.479;
         text-align: left;
         font-size:  calc(2.4rem + ((1vw - 3.75px) * 2.6519));
+        // 1280に対して4.8rem、375に対して2.4rem
         position: relative;
         @media (min-width: 1280px) {
             font-size: 4.8rem;
@@ -496,6 +725,13 @@ img{
             font-size: 2.4rem;
             color: $accentColor;
         }
+
+        @media screen and(max-width: 768px){
+            &:after{
+                top: -40px;
+                font-size: 1.6rem;
+            }
+        }
     }
 
     .slider-wrapp{
@@ -503,7 +739,7 @@ img{
 
         .slide-contents{
             li{
-                width: 50vw;
+                width: (733/1280)*100vw; // おそらくいらないが、お守りとして
                 figure{
                     img{
                         width: 100%;
@@ -511,6 +747,11 @@ img{
                 }
             }
         }
+
+        @media screen and(max-width: 768px){
+            margin-top: 50px;
+        }
+
     }
 
     &-text_wrapp{
@@ -533,268 +774,23 @@ img{
                 margin-top: 2em ;
             }
         }
+
+        @media screen and(max-width: 768px){
+            padding-top: 100px;
+            padding-bottom: 100px; 
+            
+            .value-text{
+                width: 95vw;
+            }
+        }
     }    
 }
 
 .footer{
     height: 346px;
     background-color: $accentColor;
-}
 
-
-
-
-@media screen and (max-width: 768px){
-
-    body{
-        font-size: 1.6rem;
-    }
-    h2{
-        font-size: 4rem;
-    }
-    h3{
-        font-size: 2.4rem;
-    }
-
-    // ===================================
-
-    .header{
-        p{
-            top: 2%;
-            left: 5%;
-            color: #fff;
-            font-size: calc(2.4rem + ((1vw - 3.75px) * 1.989));
-            text-transform: uppercase;
-            z-index: 2;
-        }
-    }
-
-    .greeting{
-        padding-top: 200px;
-        padding-bottom: 100px;
-        width: 95%;
-
-        p{
-            margin-top: 30px;
-            &:not(:first-of-type){
-                margin-top: 38px;
-            }
-        }
-    }
-
-    .skills{
-        padding-top: 100px;
-        padding-bottom: 300px;
-    
-    // ================共通部分=================
-           @mixin skillsSet{
-               .skill-ttl{
-                    width: 100%;
-                    height: 350px;
-                
-                    h3{
-                        padding-top: 72px;
-    
-                        .skill-big{
-                            margin-left: 18px;
-                            font-size: 8rem;
- 
-                        }
-                        .skill-small{
-                            font-size: 1.6rem;
-                        }
-                    }
-                }
-    
-                .skill-flex{
-                    flex-direction: column;
-    
-                    figure{
-                        max-width: 95%;
-                    }
-                    p{
-                        width: 95vw;
-                        margin: 42px auto 0;
-                    }
-                }
-           }
-    // ================/共通部分=================
-    
-        .cording{
-            margin-top: 70px;
-            @include skillsSet();
-    
-            .skill-flex{
-                top: -170px;
-    
-                figure{
-                    margin-right: auto;
-                    margin-left: auto;
-                }
-            }
-        }
-        .designing{
-            margin-top: 0px;
-            @include skillsSet();
-    
-            .skill-flex{
-                flex-direction: column;
-
-                position: relative;
-                top: 180px;
-                
-                figure{
-                    margin-right: auto;
-                    margin-left: auto;
-                }
-            }
-        }
-    }
-
-
-    .works{
-        padding-top: 150px;
-        padding-bottom: 100px;
-    
-        h2{
-            &:after{
-                top: -40px;
-                font-size: 1.6rem;
-            }
-        }
-    
-        ol{
-            margin-top: 78px;
-            
-            li{
-                flex-wrap: wrap;
-    
-                .double-circle{
-                    width: 12px;
-                    height: 12px;
-                    border-width: 9px;  
-                }
-                figure{
-                    width: 80%;
-                }
-                .works-text{
-                    margin-top: 20px;
-                    max-width: 100%;
-                    width: 80%;
-                    margin-left: 14%;
-                    time{
-                        font-size: 2.4rem;
-                    }
-                }
-                &:not(:first-of-type){
-                    margin-top: 98px;
-                }
-            }
-        }
-    
-        &-mind{
-            width: 85%;
-            margin: 112px 0 0 10%;
-        }
-    }
-
-
-
-    .opinions{
-        padding-top: 150px;
-        padding-bottom: 280px;
-    
-        h3{
-            .opinions-big{
-                font-size: 8rem;
-                margin-left: 18px;
-            }
-        }
-    
-        .opinions-up{
-            h3{
-                margin-right: 5%;
-                white-space: normal;
-                line-height: 1.2;
-            }
-            p{
-                margin-top: 50px;
-            }
-        }
-    
-        .opinions-images{
-            li{
-                &:nth-child(4){
-                    top: 530px;
-                }
-            }
-        }
-    
-        .opinions-down{
-            h3{
-                margin-right: 5%;
-            }
-            p{
-                position: absolute;
-                right: 10%;
-                max-width: 573px;
-                margin-top: 59px;
-                z-index: 10;
-                background-color: rgba(240, 240, 240, 0.5);
-            }
-        }
-    }
-
-
-    .history{
-    padding-top: 150px;
-    padding-bottom: 100px;
-
-        .history-list{
-            width: 95%;
-            margin: 82px auto 0;
-
-            tr{
-                th{
-                    padding: 20px 0;
-                }
-                td{
-                    border-left: solid 10px #fff;
-                    padding: 20px 0;
-                }
-            }
-        }
-    }
-
-    
-    .value{
-        padding-top: 150px;
-    
-        h2{
-            &:after{
-                top: -40px;
-                font-size: 1.6rem;
-            }
-        }
-    
-        .slider-wrapp{
-            margin-top: 50px;
-        }
-    
-        &-text_wrapp{
-            padding-top: 100px;
-            padding-bottom: 100px; 
-            
-            .value-text{
-                width: 95%;
-                max-width: 711px;
-            }
-        }    
-    }
-    
-    .footer{
+    @media screen and (max-width: 768px){
         height: 150px;
     }
-    
 }
-
