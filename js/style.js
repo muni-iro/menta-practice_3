@@ -1,3 +1,4 @@
+// ===========slick============
 $('.slide-contents').slick({
     centerMode: true,
     centerPadding: '22%',
@@ -11,3 +12,24 @@ $('.slide-contents').slick({
         }
    }]
 });
+// ===========/slick============
+
+// ===========スクロールフェイドインアクション============
+
+$(window).scroll(function (){
+     $('.fadeIn, .fadeInRight').each(function(){
+         let targetElement = $(this).offset().top;
+         let scroll = $(window).scrollTop();
+         let windowHeight = $(window).height();
+         if (scroll > targetElement - windowHeight + 200){
+             $(this).css('opacity','1');
+             $(this).css('transform','translateY(0)');
+         }
+     });
+     animation();
+     $(window).scroll(function (){
+          animation();
+     });
+ });
+
+ // ===========/スクロールフェイドインアクション============
