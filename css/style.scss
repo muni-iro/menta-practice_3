@@ -1,0 +1,795 @@
+@font-face{
+    font-family: 'objective_B';
+    src: url('../fonts/objective/Objective_Woff2/Objective-Bold.woff2') format('woff2');
+    
+}
+@font-face {
+    font-family: 'objective_BI';
+    src: url('../fonts/objective/Objective_Woff2/Objective-Bold-Italic.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'objective_M';
+    src: url('../fonts/objective/Objective_Woff2/Objective-Medium.woff2') format('woff2');
+}
+
+$mainFontColor: #454545;
+$accentColor: #7AD6BB;
+
+html{
+    font-size: 62.5%;
+}
+body{
+    font-family: 'objective_BI', 'Noto Sans JP', sans-serif;;
+    font-size: 2rem;
+    color: $mainFontColor;
+    -webkit-font-smoothing: antialiased;
+
+    @media screen and(max-width: 768px){
+        font-size: 1.6rem;
+    }
+}
+
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translate(-40%, 30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-40%, 0px);
+    }
+  }
+.main-ttl{
+    font-size: calc(6rem + ((1vw - 3.75px) * 13.2597));
+    // 1280に対して18rem、375に対して6remで可変
+    animation: fade-in-up 1.2s ease 0.7s forwards;
+    opacity: 0;
+}
+.section-ttl{
+    font-size: 6rem;
+    text-align: center;
+
+    @media screen and(max-width: 768px){
+        font-size: 4rem;
+    }
+}
+.sub-ttl{
+    font-size: 3.2rem;
+
+    @media screen and(max-width: 768px){
+        font-size: 2.4rem;
+    }
+}
+img{
+    max-width: 100%;
+    vertical-align: middle; // imgのしたの余白を消す。display: block; でも可
+}
+@mixin section-ttl-shadow{
+    position: relative;
+    z-index: 1;
+    &:before{
+        // content: ''; コンテンツは各々入れる
+        position: absolute;
+        bottom: 5px;
+        right: 0;
+        left: 12px;
+        color: #F2F2F2;
+        -webkit-text-stroke: 1px $accentColor;
+
+        // text-shadow:1px 1px 0 $accentColor, -1px -1px 0 $accentColor,-1px 1px 0 $accentColor, 1px -1px 0 $accentColor,0px 1px 0 $accentColor, 0 -1px 0 $accentColor;
+        // この方法だと、K の角っこが切れる。あくまで影サイズがひと回り大きくなる。
+
+        z-index: -1;
+    }
+}
+.fadeIn{
+    opacity: 0;
+    transform: translateY(200px);
+    transition: all 1s ease 0s;
+}
+.fadeInRight{
+    opacity: 0;
+    transform: translateX(200px);
+    transition: all 1s ease 0s;
+}
+
+// ===============/utility===============
+
+.header{
+    p{
+        font-family: 'objective_B';
+        position: absolute;
+        top: 36px;
+        left: 36px;
+        color: #fff;
+        font-size: calc(2.4rem + ((1vw - 3.75px) * 1.989));
+        // 1280に対して4.2rem,375に対して2.4rem
+        text-transform: uppercase;
+        z-index: 2;
+    }
+
+    @media screen and(max-width: 768px){
+        p{
+            top: 2%;
+            left: 5%;
+        }
+    }
+}
+
+.main-visual{
+    position: relative;
+    &_movie{
+        width: 100vw;
+        height: 45.15625vw;
+        
+        iframe{
+            width: 100%;
+            height: 100%;
+        }
+        // &:after{//動画内をさわれない様にする。ホバーするとボタンが出てくるのを防止。スマホの時に自走再生されずその時積むのでボツ
+        //     content: '';
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     width: 100%;
+        //     height: 100%;
+        //     background-color: transparent;
+        //     z-index: 1;
+        // }
+    }
+    h1{
+        position: absolute;
+        left: 40%;
+        bottom: -1.22em;
+        transform: translateX(-40%);
+        color: #7AD6BB;
+        line-height: 1.22;
+        white-space: nowrap;
+    }
+}
+
+.greeting{
+    padding-top: 464px;
+    padding-bottom: 277px;
+    max-width: 722px;
+    margin: 0 auto;
+
+    .sub-ttl{
+        text-align: center;
+    }
+    p{
+        margin-top: 38px;
+        line-height: 2;
+        &:not(:first-of-type){
+            margin-top: 52px;
+        }
+    }
+
+    @media screen and(max-width: 768px){
+        padding-top: 200px;
+        padding-bottom: 100px;
+        width: 95vw;
+    
+        p{
+            margin-top: 30px;
+            &:not(:first-of-type){
+                margin-top: 38px;
+            }
+        } 
+    }
+}
+
+.skills{
+    position: relative;
+    padding-top: 169px;
+    padding-bottom: 478px;
+    background-color: #F2F2F2;
+    z-index: 1;
+
+    @media screen and(max-width: 768px){
+        padding-top: 100px;
+        padding-bottom: 300px;
+    }
+
+    &:after{
+        position: absolute;
+        top: 100px;
+        left: -70px;
+        content: 'Portfolio';
+        writing-mode: vertical-rl;
+        font-size: 30rem;
+        color: #fff;
+    }
+
+    .section-ttl{
+        @include section-ttl-shadow();
+        &:before{
+            content: 'Skills';
+        }
+    }
+
+// ================共通部分=================
+       @mixin skillsSet{
+           .skill-ttl{
+                width: (837/1280)*100vw;
+                height: 452px;
+                background-color: $accentColor;
+                text-align: center;    
+
+                .sub-ttl{
+                    padding-top: 91px;
+                    font-weight: normal;
+                    position: relative;
+                    line-height: 1.2;
+                    z-index: 1;
+
+                    .skill-big{
+                        margin-right: 10px;
+                        margin-left: 30px;
+                        font-size: 10rem;
+                        vertical-align: -10px;
+                    }
+                    .skill-small{
+                        font-size: 2rem;
+                    }
+                }
+            }
+
+            .skill-flex{
+                display: flex;
+                justify-content: space-evenly;
+                z-index: 1;
+
+                p{
+                    max-width: 420px;
+                    width: 50vw;
+                    line-height: 2;
+                }
+            }
+
+            @media screen and(max-width: 768px){
+                .skill-ttl{
+                    width: 100vw;
+                    height: 350px;
+                
+                    .sub-ttl{
+                        padding-top: 72px;
+    
+                        .skill-big{
+                            margin-left: 18px;
+                            font-size: 8rem;
+    
+                        }
+                        .skill-small{
+                            font-size: 1.6rem;
+                        }
+                    }
+                }
+    
+                .skill-flex{
+                    flex-direction: column;
+    
+                    figure{
+                        max-width: 95vw;
+                    }
+                    p{
+                        width: 95vw;
+                        margin: 42px auto 0;
+                    }
+                }
+            }
+        }
+// ================/共通部分=================
+
+    .cording{
+        margin-top: 116px;
+        @include skillsSet();
+
+        .skill-flex{
+            position: relative;
+            top: -200px;
+
+            figure{
+                margin-right: 10px;
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            margin-top: 70px;
+    
+            .skill-flex{
+                top: -170px;
+    
+                figure{
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+    .designing{
+        margin-top: 44px;
+        @include skillsSet();
+
+        .skill-ttl{
+            position: absolute;
+            right: 0;
+        }
+        .skill-flex{
+            flex-direction: row-reverse;
+            position: relative;
+            top: 239px;
+            
+            figure{
+                margin-left: 10px;
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            margin-top: 0px;
+    
+            .skill-flex{
+                flex-direction: column;
+                top: 180px;
+                
+                figure{
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+}
+
+.works{
+    overflow: hidden;
+    padding-top: 270px;
+    padding-bottom: 97px;
+
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+        padding-bottom: 100px;
+    }
+
+    .section-ttl{
+        @include section-ttl-shadow();
+        &:before{
+            content: 'Works';
+            color: #fff;
+        }
+        &:after{
+            display: block;
+            content: 'Recent works';
+            position: absolute;
+            top: -58px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 2.4rem;
+            color: $accentColor;
+        }
+
+        @media screen and(max-width: 768px){
+            &:after{
+                top: -40px;
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    ol{
+        margin-top: 92px;
+        
+        li{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+
+            &:first-of-type{
+                
+                .double-circle{
+                    position: relative;
+                
+                    &:after{
+                        position: absolute;
+                        top: -1000px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        content: '';
+                        width: 1px;
+                        height: 10000px;
+                        background-color: $mainFontColor;
+                        z-index: -1;
+                    }
+                }
+            } 
+
+            .double-circle{
+                // color: $accentColor; 
+                width: 18px;
+                height: 18px;
+                background: #fff;
+                border: solid 16px $accentColor;
+                border-radius: 50%;
+            }
+            figure{
+                width: (497.25/1280)*100vw;
+                img{
+                    width: 100%;
+                }
+            }
+            .works-text{
+                width: (501/1280)*100vw;
+                max-width: 501px;
+                align-self: flex-start;
+                time{
+                    font-family: 'objective_M';
+                    font-size: 3.2rem;
+                }
+                p{
+                    margin-top: 31px;
+                    line-height: 2;
+                }
+            }
+            &:not(:first-of-type){
+                margin-top: 158px;
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            margin-top: 78px;
+        
+            li{
+                flex-wrap: wrap;
+
+                .double-circle{
+                    width: 12px;
+                    height: 12px;
+                    border-width: 9px;  
+                }
+                figure{
+                    width: 80vw;
+                }
+                .works-text{
+                    margin-top: 20px;
+                    max-width: 100%;
+                    width: 80vw;
+                    margin-left: 14%;
+                    time{
+                        font-size: 2.4rem;
+                    }
+                }
+                &:not(:first-of-type){
+                    margin-top: 98px;
+                }
+            }
+        }
+    }
+
+    &-mind{
+        max-width: 815px;
+        width: (815/1280)*100vw;
+        margin: 112px auto 0;
+
+        p{
+            margin-top: 21px;
+            line-height: 2;
+        }
+
+        @media screen and(max-width: 768px){
+            &-mind{
+                width: 85%;
+                margin: 112px 0 0 10%;
+            }
+        }
+    }
+}
+
+.opinions{
+    padding-top: 214px;
+    padding-bottom: 347px;
+    background-color: #F2F2F2;
+    overflow: hidden;
+
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+        padding-bottom: 280px;
+    }
+
+    .sub-ttl{
+        font-weight: normal;
+        .opinions-big{
+            margin-right: 10px;
+            margin-left: 30px;
+            font-size: 10rem;
+            vertical-align: -10px;
+        }
+        @media screen and(max-width: 768px){
+            .opinions-big{
+                font-size: 8rem;
+                margin-left: 18px;
+            }
+        }
+    }
+
+    p{
+        line-height: 2;
+    }
+
+    .opinions-up{
+        position: relative;
+        .sub-ttl{
+            text-align: right;
+            margin-right: 18%;
+            white-space: nowrap;
+        }
+        p{
+            padding: 10px 20px;
+            position: absolute;
+            right: 20%;
+            max-width: 481px;
+            margin-top: 93px;
+            z-index: 10;
+            background-color: rgba(240, 240, 240, 0.5);
+        }
+
+        @media screen and(max-width: 768px){
+            .sub-ttl{
+                margin-right: 5%;
+                white-space: normal;
+                line-height: 1.2;
+            }
+            p{
+                margin-top: 50px;
+            }
+        }
+    }
+
+    .opinions-images{
+        position: relative;
+        max-width: 1420px; // デザインが変にならないギリギリのwidth
+        margin-right: auto;
+        margin-left: auto;
+
+        li{
+            list-style: none;
+            &:first-child{
+                position: absolute;
+                top: 93px;
+                left: 2%;
+                z-index: 2;
+            }
+            &:nth-child(2){
+                position: absolute;
+                top: 279px;
+                left: 14%;
+                width: 525px;
+                height: 318px;
+                background-color: $accentColor;
+                z-index: 1;
+            }
+            &:nth-child(3){
+                position: absolute;
+                top: 329px;
+                right: 12%;
+                z-index: 3;
+            }
+            &:nth-child(4){
+                position: absolute;
+                top: 466px;
+                left: 18%;
+                z-index: 2;
+            }
+            &:nth-child(5){
+                position: absolute;
+                top: 733px;
+                right: 20%;
+                z-index: 2;
+            }
+            &:nth-child(6){
+                position: absolute;
+                top: 915px;
+                left: 5%;
+                z-index: 1;
+            }
+            &:nth-child(7){
+                position: absolute;
+                top: 1017px;
+                right: 25%;
+                width: 525px;
+                height: 318px;
+                background-color: $accentColor;
+                z-index: 0;
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            li{
+                &:nth-child(4){
+                    top: 530px;
+                }
+            }
+        }
+    }
+
+    .opinions-down{
+        margin-top: 1219px;
+        position: relative;
+        .sub-ttl{
+            text-align: right;
+            margin-right: 15%;
+            z-index: 2;
+        }
+        p{
+            position: absolute;
+            right: 21%;
+            max-width: 573px;
+            margin-top: 59px;
+            z-index: 10;
+            background-color: rgba(240, 240, 240, 0.5);
+        }
+
+        @media screen and(max-width: 768px){
+            .sub-ttl{
+                margin-right: 5%;
+            }
+            p{
+                right: 10%;
+            }
+        }
+    }
+}
+
+.history{
+    padding-top: 277px;
+    padding-bottom: 163px;
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+        padding-bottom: 100px;
+    }
+
+    .section-ttl{
+        @include section-ttl-shadow();
+        &:before{
+            content: 'History';
+            color: #fff;
+        }
+    }
+
+    .history-list{
+        margin: 116px auto 0;
+        max-width: 816px;
+        line-height: 2;
+
+        tr{
+            th{
+                border-top: solid 2px $accentColor;
+                color: $accentColor;
+                padding: 38px 0 38px 69px;
+
+            }
+            td{
+                border-top: solid 2px $mainFontColor;
+                border-left: solid 25px #fff;
+                padding: 30px 0 30px 3px;
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            width: (356/375)*100vw;
+            margin: 82px auto 0;
+    
+            tr{
+                th{
+                    padding: 20px 0;
+                }
+                td{
+                    border-left: solid 10px #fff;
+                    padding: 20px 0;
+                }
+            }
+        }
+    }
+}
+
+.value{
+    padding-top: 280px;
+    background-color: #262626;
+
+    @media screen and(max-width: 768px){
+        padding-top: 150px;
+    }
+
+    .section-ttl{
+        width: fit-content; // margin: auto; を使うための幅設定
+        margin: 0 auto;
+        color: #fff;
+        line-height: 1.479;
+        text-align: left;
+        font-size:  calc(2.4rem + ((1vw - 3.75px) * 2.6519));
+        // 1280に対して4.8rem、375に対して2.4rem
+        position: relative;
+        @media (min-width: 1280px) {
+            font-size: 4.8rem;
+        }
+
+        &:after{
+            display: block;
+            content: 'My Value';
+            position: absolute;
+            top: -58px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 2.4rem;
+            color: $accentColor;
+        }
+
+        @media screen and(max-width: 768px){
+            &:after{
+                top: -40px;
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    .slider-wrapp{
+        margin-top: 132px;
+
+        .slide-contents{
+            li{
+                width: (733/1280)*100vw; // おそらくいらないが、お守りとして
+                figure{
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            margin-top: 50px;
+        }
+
+    }
+
+    &-text_wrapp{
+        background-image: url(../images/iphone@2x.jpg);
+        background-color: rgba(0, 0, 0, 0.8);
+        background-blend-mode: darken;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        padding-top: 206px;
+        padding-bottom: 185px; 
+        
+        .value-text{
+            line-height: 2;
+            margin: 0 auto ;
+            max-width: 711px;
+            color: #fff;
+
+            p:not(:first-of-type){
+                margin-top: 2em ;
+            }
+        }
+
+        @media screen and(max-width: 768px){
+            padding-top: 100px;
+            padding-bottom: 100px; 
+            
+            .value-text{
+                width: 95vw;
+            }
+        }
+    }    
+}
+
+.footer{
+    height: 346px;
+    background-color: $accentColor;
+
+    @media screen and (max-width: 768px){
+        height: 150px;
+    }
+}
